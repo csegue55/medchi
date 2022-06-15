@@ -1,0 +1,97 @@
+<div>    
+      <x-jet-button wire:click="$set('open', true)">
+            Editar-{{$user_id}}
+      </x-jet-button>
+
+      <x-jet-dialog-modal wire:model="open" maxWidth="2xl" >
+
+      <!-- .................................................................................................................................. -->
+      <x-slot  name="title">
+            <p class="text-center font-bold">Modificar datos Usuario</p>
+      </x-slot>
+            
+      <x-slot name="content">
+      <!-- .................................................................................................................................. -->      
+<!--
+            <table class=""> 
+            <tr>
+            <th class="cursor-pointer text-center" ><input class="h-6 border-0 bg-red-100 w-10"  type="text"  placeholder="id"></th>
+            <th class="cursor-pointer text-center" ><input class="h-6 border-0 bg-red-100 w-30"  type="text"  placeholder="nombre"></th>
+            <th class="cursor-pointer text-center" ><input class="h-6 border-0 bg-red-100 w-60"  type="text"  placeholder="apellido"></th>
+            <th class="cursor-pointer text-center" ><input class="h-6 border-0 bg-red-100 w-30"  type="text"  placeholder="teléfono"></th>
+            <th class="cursor-pointer text-center" ><input class="h-6 border-0 bg-red-100 w-60"  type="text"  placeholder="email"></th>
+            <th class="cursor-pointer text-center" ><input class="h-6 border-0 bg-red-100 w-30"  type="text"  placeholder="rol"></th>
+            <th class="cursor-pointer text-center" ><input class="h-6 border-0 bg-red-100 w-16"  type="text"  placeholder="contador"></th>
+            </tr>
+            </table>    
+-->
+
+            <table>
+
+            <form action="{{route('users.update', $user_id)}}" method="post">            
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>    @csrf
+                        <input type="hidden" name="_method" value="PUT"/>                  @method('put')
+
+                  <div class="flex flex-row mt-2">
+                        <div class="bg-red-200 w-20 mr-4 h-6">id :</div>
+                        <div class="w-80"><input class="h-6 border-0 bg-gray-200 w-30" type="text" wire:model.defer="user_id"  name="id" value="{{$user_id}}"></div>
+                  </div>
+                  <div class="flex flex-row mt-2">
+                        <div class="bg-red-200 w-20 mr-4 h-6">nombre :</div>
+                        <div class="w-80"><input class="h-6 border-0 bg-gray-200 w-30" type="text" wire:model.defer="name" name="name" value="{{$name}}"></div>
+                  </div>
+                  <div class="flex flex-row mt-2">
+                        <div class="bg-red-200 w-20 mr-4 h-6">apellido :</div>
+                        <div class="w-80"><input class="h-6 border-0 bg-gray-200 w-30" type="text" wire:model.defer="apellido" name="apellido" value="{{$apellido}}"></div>
+                  </div>
+                  <div class="flex flex-row mt-2">
+                        <div class="bg-red-200 w-20 mr-4 h-6">teléfono :</div>
+                        <div class="w-80"><input class="h-6 border-0 bg-gray-200 w-30" type="text" wire:model.defer="tfno"  name="tfno" value="{{$tfno}}"></div>
+                  </div>
+                  <div class="flex flex-row mt-2">
+                        <div class="bg-red-200 w-20 mr-4 h-6">email :</div>
+                        <div class="w-80"><input class="h-6 border-0 bg-gray-200 w-30" type="text" wire:model.defer="email" name="email" value="{{$email}}"></div>
+                  </div>
+                  <div class="flex flex-row mt-2">
+                        <div class="bg-red-200 w-20 mr-4 h-6">rol :</div>
+                        <div class="w-80"><input class="h-6 border-0 bg-gray-200 w-30" type="text" wire:model.defer="rol" name="rol" value="{{$rol}}"></div>
+                  </div>
+                  <div class="flex flex-row mt-2">
+                        <div class="bg-red-200 w-20 mr-4 h-6">cont :</div>
+                        <div class="w-80"><input class="h-6 border-0 bg-gray-200 w-30" type="text" disabled wire:model="cont"  name="cont" value="{{$cont}}"></div>
+                  </div>
+
+                                  @error('nombre')<small>*{{$message}}</small>@enderror
+                                  @error('apellido')<small>*{{$message}}</small>@enderror
+                                  @error('tfno')<small>*{{$message}}</small>@enderror
+                                  @error('email')<small>*{{$message}}</small>@enderror
+                                  @error('rol')<small>*{{$message}}</small>@enderror
+
+                  <x-jet-secondary-button wire:click="$set('open', false)">Cancelar</x-jet-secondary-button>  
+                  <x-jet-danger-button type="submit" class="ml-2">Crear Etiqueta</x-jet-danger-button>              
+
+           </form>
+           </table>
+
+
+
+
+      <!-- .................................................................................................................................. -->           
+      </x-slot>      
+            
+            
+      <x-slot name="footer">
+            <!--
+            <x-jet-secondary-button wire:click="$set('open', false)">Cancelar</x-jet-secondary-button>
+            <x-jet-danger-button wire:click="editar('3')" class="ml-2">Crear Etiqueta</x-jet-danger-button>
+            -->
+      </x-slot>     
+
+
+
+      
+
+      </x-jet-dialog-modal>
+
+
+</div>

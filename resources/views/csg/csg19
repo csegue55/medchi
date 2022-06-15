@@ -1,0 +1,134 @@
+
+<!-- DATOS -->
+ <!-- ..................................................................................................................................... -->  
+ @foreach($visitas as $visita)
+ <form action="{{route('visitas.update', $visita)}}" method="post">            
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>    @csrf
+                    <input type="hidden" name="_method" value="PUT"/>                  @method('put')
+<!-- ................................................................................................................... -->
+<div class="container ml-2 mr-2">
+<div class="grid grid-cols-4 grid-rows-6">  
+   
+        <!-- ..................................................................................................................................... -->                    
+        <div class="row-span-6 border-2 border-slate-200">
+        <table>
+                <tr><td class="w-32  text-left "> Visita    :</td><td class="text-left">    <input name="id"        value="{{$visita->id}}"></td><tr>
+                <tr><td class="w-32  text-left "> Fecha     :</td><td class="text-left">    <input name="fecha"     value="{{$visita->fecha}}"></td><tr>
+                <tr><td class="w-32  text-left "> Nº_Cli    :</td><td class="text-left">    <input name="user_id"   value="{{$visita->user_id}}"></td><tr>
+                <tr><td class="w-32  text-left "> Nombre    :</td><td class="text-left">    <input name="name"      value="{{$visita->user->name}}"></td><tr>
+                <tr><td class="w-32  text-left "> Apellido  :</td><td class="text-left">    <input name="apellido"  value="{{$visita->user->apellido}}"></td><tr>
+                <tr><td class="w-32  text-left "> Nº_Origen :</td><td class="text-left">    <input name="origen_id" value="{{$visita->user->origen_id}}"></td><tr>
+                <tr><td class="w-32  text-left "> Origen    :</td><td class="text-left">    <input name="origen"    value="{{$visita->user->origen->descorigen}}"></td><tr>
+            @endforeach
+        </table>        
+    </div>
+    <!-- ..................................................................................................................................... -->
+    <div class="col-span-3 border-2 border-slate-200 mr-4">
+        
+        <?php $tratamientos= Tratamiento::all();
+        $cont= count($visita->tratamientos); 
+        //echo $cont; echo "<br>";
+        ?>
+
+        @foreach($tratamientos as $trat)
+            <?php //for($i=0; $i<($visita->tratamientos->pluck('tratamiento')->count()); $i++) { ?>
+            <?php $saltar= 0;?>
+
+            <?php for($i=0; $i<count($visita->tratamientos); $i++) { ?>    
+                    @foreach($visita->tratamientos as $tratamiento)
+                            <?php if($trat->id == $tratamiento->pivot->tratamiento_id) { ?>
+                                <div class="inline-block">
+                                <table>
+                                    <input class="" type="checkbox" id="" name="trat[]" value= "{{$trat->id}}" checked>
+                                    <div class="inline-block mt-2 ml-1"> {{$trat->tratamiento}}</div>
+                                </table>
+                                </div>
+                                <?php $i= $cont; $saltar= 1;?>
+                            <?php } ?>
+                    @endforeach    
+            <?php } ?>
+
+            <?php if($saltar == 0) { ?>   
+                            <div class="inline-block">
+                                <table>
+                                    <input class="" type="checkbox" id="" name="trat[]" value= "{{$trat->id}}">
+                                    <div class="inline-block mt-2 ml-1"> {{$trat->tratamiento}}</div>
+                                </table>
+                            </div>
+                            <?php $saltar= 0; ?>
+            <?php } ?>
+        @endforeach
+    </div>
+    <!-- ..................................................................................................................................... -->
+    <div class="col-span-3 border-2 border-slate-200 mr-4">
+        <!--
+            @foreach( $visita->productos as $producto)
+                <div class="inline-block">
+                <table>
+                        <input class="" type="checkbox" id="" name="" value= "{{$producto->id}}" checked>
+                        <div class="inline-block mt-2 ml-1"> {{$producto->nombre}}</div>
+                </table>
+                </div>    
+            @endforeach
+        -->
+        
+        <?php $productos= Producto::all();
+        $cont2= count($visita->productos); 
+        //echo $cont2; echo "<br>";
+        ?>
+
+        @foreach($productos as $pro)
+            <?php //for($i=0; $i<($visita->productos->pluck('producto')->count()); $j++) { ?>
+            <?php $saltar2= 0;?>
+
+            <?php for($j=0; $j<count($visita->productos); $j++) { ?>    
+                    @foreach($visita->productos as $producto)
+                            <?php if($pro->id == $producto->pivot->producto_id) { ?>
+                                <div class="inline-block">
+                                <table>
+                                    <input class="" type="checkbox" id="" name="pro[]" value= "{{$pro->id}}" checked>
+                                    <div class="inline-block mt-2 ml-1"> {{$pro->nombre}}</div>
+                                </table>
+                                </div>
+                                <?php $j= $cont2; $saltar2= 1;?>
+                            <?php } ?>
+                    @endforeach    
+            <?php } ?>
+
+            <?php if($saltar2 == 0) { ?>   
+                            <div class="inline-block">
+                                <table>
+                                    <input class="" type="checkbox" id="" name="pro[]" value= "{{$pro->id}}">
+                                    <div class="inline-block mt-2 ml-1"> {{$pro->nombre}}</div>
+                                </table>
+                            </div>
+                            <?php $saltar2= 0; ?>
+            <?php } ?>
+        @endforeach        
+
+    </div>
+    <!-- ..................................................................................................................................... -->
+    <div class="col-span-3 row-span-2 border-2 border-slate-200 mr-4">
+            <div class="flex flex-col">
+            <div class="div">Síntomas</div>    
+            @foreach($visitas as $visita)
+                <textarea class="border-0 bg-gray-200 w-full" type="text" name="sintomas" value="">{{$visita->sintomas}}</textarea>
+            @endforeach
+            </div>
+    </div>
+    <!-- ..................................................................................................................................... -->
+    <div class="col-span-3 row-span-2 border-2 border-slate-200 mr-4">
+            <div class="flex flex-col">
+            <div class="div">Observa.</div>   
+            @foreach($visitas as $visita)
+            <textarea class="border-0 bg-gray-200 w-full" type="text" name="observaciones" value="">{{$visita->observaciones}}</textarea>
+            @endforeach
+            </div>
+    </div>
+<!-- ..................................................................................................................................... -->
+<!-- ................................................................................................................. -->
+    <input class="bg-slate-900 rounded-sm text-white mt-4 w-full" type="submit" name="" value="EDITAR"/>
+<!-- ................................................................................................................. -->
+</form>  
+</div>
+</div> 

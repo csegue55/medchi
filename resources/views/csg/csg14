@@ -1,0 +1,140 @@
+<?php
+use App\Models\Sesion;
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="{{asset('css/app.css')}}">
+</head>
+<body>
+        
+</body>
+</html>
+<!-- Datos -->   
+
+
+        <h3 class="text-center text-bold text-2xl">Edición campos de clientes</h3>
+        <hr class="bg-gray-700 h-1 w-full mx-auto">
+
+
+
+
+
+        <!-- Users -->
+        <!-- .................................................................................................................................. -->
+        <table>
+            <div class="flex flex-row mt-2">
+                    <div class="bg-red-200 w-20 mr-4 h-6">id :</div>
+                    <div class="w-80"><input class="h-6 border-0 bg-gray-200 w-72  " type="text" disabled name="id" value="{{$visita->user->id}}"></div>
+            </div>
+            <div class="flex flex-row mt-2">
+                    <div class="bg-red-200 w-20 mr-4 h-6">nombre :</div>
+                    <div class="w-80"><input class="h-6 border-0 bg-gray-200 w-72  " type="text"  name="name" value="{{$visita->user->name}}"></div>
+                    @error('name')<small class="text-bold text-red-700">*{{$message}}</small>@enderror
+            </div>
+            <div class="flex flex-row mt-2">
+                    <div class="bg-red-200 w-20 mr-4 h-6">apellido :</div>
+                    <div class="w-80"><input class="h-6 border-0 bg-gray-200 w-72  " type="text" name="apellido" value="{{$visita->user->apellido}}"></div>
+                    @error('apellido')<small class="text-bold text-red-700">*{{$message}}</small>@enderror
+            </div>
+            <div class="flex flex-row mt-2">
+                    <div class="bg-red-200 w-20 mr-4 h-6">teléfono :</div>
+                    <div class="w-80"><input class="h-6 border-0 bg-gray-200 w-72  " type="text"   name="tfno" value="{{$visita->user->tfno}}"></div>
+                    @error('tfno')<small class="text-bold text-red-700">*{{$message}}</small>@enderror
+            </div>
+            <div class="flex flex-row mt-2">
+                    <div class="bg-red-200 w-20 mr-4 h-6">email :</div>
+                    <div class="w-80"><input class="h-6 border-0 bg-gray-200 w-72  " type="text"  name="email" value="{{$visita->user->email}}"></div>
+                    @error('email')<small class="text-bold text-red-700">*{{$message}}</small>@enderror
+            </div>
+            <div class="flex flex-row mt-2">
+                    <div class="bg-red-200 w-20 mr-4 h-6">rol :</div>
+                    <div class="w-80"><input class="h-6 border-0 bg-gray-200 w-72  " type="text" name="rol" value="{{$visita->user->rol}}"></div>
+                    @error('rol')<small class="text-bold text-red-700">*{{$message}}</small>@enderror
+            </div>
+            <div class="flex flex-row mt-2">
+                    <div class="bg-red-200 w-20 mr-4 h-6">cont :</div>
+                    <div class="w-80"><input class="h-6 border-0 bg-gray-200 w-72  " type="text"  disabled name="cont" value="{{$visita->user->cont}}"></div>
+            </div>
+        </table>
+
+            
+  
+        <!-- Origen -->
+        <!-- .................................................................................................................................. -->
+            <div class="flex flex-row mt-2">
+                    <div class="bg-red-200 w-20 mr-4 h-6">cont :</div>
+                    <div class="w-80"><input class="h-6 border-0 bg-gray-200 w-72  " type="text"  disabled name="cont" value="{{$visita->origen->descorigen}}"></div>
+            </div>
+
+        <!-- Sesiones -->
+        <!-- .................................................................................................................................. -->
+        <table class=""> 
+        <tr>
+                <th class="cursor-pointer text-center"><input class="h-6 border-0 bg-red-100 w-10"  type="text" disabled placeholder="id">
+                <th class="cursor-pointer text-center"><input class="h-6 border-0 bg-red-100 w-30 "  type="text" disabled placeholder="fecha">
+                <th class="cursor-pointer text-center"><input class="h-6 border-0 bg-red-100 w-20"  type="text" disabled placeholder="Visita">
+        </tr>
+        </table>    
+        <?php $sesions= Sesion::where('visita_id', $visita->id )->orderBy('fecha','asc')->get(); ?>                           
+                                @foreach($sesions as $ses)
+                                    @if( $visita->id == $ses->visita_id )
+                                    <table>
+                                        <tr>
+                                        <td><input class="h-5 mb-0 border-0 bg-gray-200 w-10" type="text" disabled   name="id"             value="{{$ses->id}}"></td>
+                                        <td><input class="h-5 mb-0 border-0 bg-gray-200 w-30" type="text" disabled   name="fecha"          value="{{$ses->fecha}}"></td>
+                                        <td><input class="h-5 mb-0 border-0 bg-gray-200 w-20" type="text" disabled   name="visita_id"      value="{{$ses->visita_id}}"></td>
+                                        </tr>
+                                    </table>
+                                    @endif
+                                @endforeach
+
+
+
+
+
+
+
+                                <tr><div class="flex flex-row mt-2">
+                    <td><div class="bg-red-200 w-20 mr-4 h-6">id :</div></td>
+                    <td><div class="w-80"><input class="h-6 border-0 bg-gray-200 w-72  " type="text" disabled name="id" value="{{$visita->user->id}}"></div></td>
+            </tr></div>
+            <tr><div class="flex flex-row mt-2">
+                    <td><div class="bg-red-200 w-20 mr-4 h-6">nombre :</div></td>
+                    <td><div class="w-80"><input class="h-6 border-0 bg-gray-200 w-72  " type="text"  name="name" value="{{$visita->user->name}}"></div></td>
+                    @error('name')<small class="text-bold text-red-700">*{{$message}}</small>@enderror
+            </tr></div>
+            <tr><div class="flex flex-row mt-2">
+                    <td><div class="bg-red-200 w-20 mr-4 h-6">apellido :</div></td>
+                    <td><div class="w-80"><input class="h-6 border-0 bg-gray-200 w-72  " type="text" name="apellido" value="{{$visita->user->apellido}}"></div></td>
+                    @error('apellido')<small class="text-bold text-red-700">*{{$message}}</small>@enderror
+            </tr></div>
+            <tr><div class="flex flex-row mt-2">
+                    <td><div class="bg-red-200 w-20 mr-4 h-6">teléfono :</div></td>
+                    <td><div class="w-80"><input class="h-6 border-0 bg-gray-200 w-72  " type="text"   name="tfno" value="{{$visita->user->tfno}}"></div></td>
+                    @error('tfno')<small class="text-bold text-red-700">*{{$message}}</small>@enderror
+            </tr></div>
+            <tr><div class="flex flex-row mt-2">
+                    <td><div class="bg-red-200 w-20 mr-4 h-6">email :</div></td>
+                    <td><div class="w-80"><input class="h-6 border-0 bg-gray-200 w-72  " type="text"  name="email" value="{{$visita->user->email}}"></div></td>
+                    @error('email')<small class="text-bold text-red-700">*{{$message}}</small>@enderror
+            </tr></div>
+            <tr><div class="flex flex-row mt-2">
+                    <td><div class="bg-red-200 w-20 mr-4 h-6">rol :</div></td>
+                    <td><div class="w-80"><input class="h-6 border-0 bg-gray-200 w-72  " type="text" name="rol" value="{{$visita->user->rol}}"></div></td>
+                    @error('rol')<small class="text-bold text-red-700">*{{$message}}</small>@enderror
+            </tr></div>
+            <tr><div class="flex flex-row mt-2">
+                    <td><div class="bg-red-200 w-20 mr-4 h-6">cont :</div></td>
+                    <td><div class="w-80"><input class="h-6 border-0 bg-gray-200 w-72  " type="text"  disabled name="cont" value="{{$visita->user->cont}}"></div></td>
+            </tr></div>
+
+
+
+
+

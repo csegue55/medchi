@@ -1,0 +1,10 @@
+                <form action="" method="">
+                    <?php    
+                    if(isset($_REQUEST['btnagregar'])){
+                        echo "Apretado";
+                    }else{
+                        echo "No Apretado";
+                    }                            
+                    ?>        
+                    <input type="submit" value="Elegir" name="btnagregar">
+                </form>

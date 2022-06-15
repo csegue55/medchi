@@ -1,0 +1,61 @@
+        <!--<td><a class="bg-gray-700 text-white"      href="@livewire('user-edit')" >EdiComp</a></td>-->
+            <!--<td><a class="bg-gray-700 text-white"      href="@livewire('user-edit', ['open' => 'true'])" >EdiComp</a></td>-->
+    
+            
+          <!-- <td><a class="bg-gray-700 text-white" href="{{route('users.edit', $user)}}" >Editar</a></td> Controlador -->
+            <!--<td><a class="bg-red-100 text-black mr-4" href="{{route('users.editcomponent', $user)}}" >Editar</a></td>-->
+
+
+
+            <form action="">
+              <?php
+              if(isset($_REQUEST['btnagregar2'])){
+                  ?>@livewire('user-edit',['open'=>'true'])<?php
+              }
+              ?>
+              <td><input class="h-5 mb-0 border-0 bg-gray-200 w-16" type="submit" name="btnagregar2" value="Editar"></td>
+              </form>     
+  
+
+              <div class="col-xl-9 colmod12 shadow" >
+        <h3 class="text-center font-bold mb-4">LISTADO DE CLIENTES</h3>    
+        
+
+    <table class=""> 
+
+        <div class="flex items-center mb-1">  
+            <x-jet-input class="flex-1 mr-4 bg-blue-50" placeholder="Escriba su búsqueda" type="text"/> <!-- flex-1 -->
+        </div>
+
+            <tr>
+            <th class="cursor-pointer text-center"><input class="h-6 border-0 bg-red-100 w-10"  type="text" disabled placeholder="id"></th>
+            <th class="cursor-pointer text-center"><input class="h-6 border-0 bg-red-100 w-30"  type="text" disabled placeholder="nombre"></th>
+            <th class="cursor-pointer text-center"><input class="h-6 border-0 bg-red-100 w-60"  type="text" disabled placeholder="apellido"></th>
+            <th class="cursor-pointer text-center"><input class="h-6 border-0 bg-red-100 w-30"  type="text" disabled placeholder="teléfono"></th>
+            <th class="cursor-pointer text-center"><input class="h-6 border-0 bg-red-100 w-60"  type="text" disabled placeholder="email"></th>
+            <th class="cursor-pointer text-center"><input class="h-6 border-0 bg-red-100 w-30"  type="text" disabled placeholder="rol"></th>
+            <th class="cursor-pointer text-center"><input class="h-6 border-0 bg-red-100 w-16"  type="text" disabled placeholder="contador"></th>
+            </tr>
+    </table>    
+
+    <?php $users= User::all(); ?>
+    @foreach($users as $user)
+    
+    <table>
+            <tr>
+            <td><input class="h-5 mb-0 border-0 bg-gray-200 w-10" type="text" disabled   name="id"        value="{{$user->id}}"></td>
+            <td><input class="h-5 mb-0 border-0 bg-gray-200 w-30" type="text" disabled   name="nombre"    value="{{$user->name}}"></td>
+            <td><input class="h-5 mb-0 border-0 bg-gray-200 w-60" type="text" disabled   name="apellido"  value="{{$user->apellido}}"></td>
+            <td><input class="h-5 mb-0 border-0 bg-gray-200 w-30" type="text" disabled   name="tfno"      value="{{$user->tfno}}"></td>
+            <td><input class="h-5 mb-0 border-0 bg-gray-200 w-60" type="text" disabled   name="email"     value="{{$user->email}}"></td>
+            <td><input class="h-5 mb-0 border-0 bg-gray-200 w-30" type="text" disabled   name="rol"       value="{{$user->rol}}"></td>
+            <td><input class="h-5 mb-0 border-0 bg-gray-200 w-16" type="text" disabled   name="cont"      value="{{$user->cont}}"></td>
+            
+            <td><a class="bg-gray-700 text-white"      href="{{route('users.edit', $user)}}" >Editar</a></td>
+            <td><a class="bg-gray-700 text-white"      href="" >Eliminar</a></td>
+            </tr>
+    </table>
+    @endforeach
+
+
+</div>

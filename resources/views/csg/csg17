@@ -1,0 +1,55 @@
+public function store(Request $request){    
+
+        return $request;
+
+
+    if(($request->name && $request->apellido) <> "")
+    {
+        User::create([
+            'name' => $request->name,
+            'apellido' =>$request->apellido,
+            'tfno' => $request->tfno,
+            'email'=> $request->email,
+            'origen_id'=> $request->origen_id,
+            'rol'=> $request->rol,
+            'cont'=> $request->cont,
+            'email_verified_at' => now(),
+            'password' => bcrypt($request->password),
+            'remember_token' => Str::random(10),
+            ]);
+
+        $usuId= User::where('email',$request->email)->first();
+
+         $vis= new Visita();
+         $vis->fecha= $request->fecha;
+         $vis->user_id= $usuId->id;
+         $vis->save();
+    }else{
+         $vis= new Visita();
+         $vis->fecha= $request->fecha;
+         $vis->user_id= $request->id;
+         $vis->save();
+
+    }        
+
+        $visId= Visita::find($vis->id);
+
+    if( $request->producto ){
+        for($i=0; $i < count($request->producto); $i++){
+            $visId->productos()->attach([$request->producto[$i]]);
+        }    
+    }
+
+    if( $request->tratamiento ){
+        for($j=0; $j < count($request->tratamiento); $j++){
+            $visId->tratamientos()->attach([$request->tratamiento[$j]]);
+        }    
+    }
+
+    //$vis= Visita::create($request->all());                 
+    return redirect()->route('visitas.listado');
+ }
+
+
+
+}

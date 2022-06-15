@@ -1,0 +1,17 @@
+                @foreach($visitas as $visita)
+<?php
+                    $sesions= Sesion::where('visita_id', $visita->id )->get(); 
+?>                           
+                    @foreach($sesions as $ses)
+                    @if( $visita->id == $ses->visita_id )
+                    
+                    <table>
+                        <tr><td>{{$ses->visita_id}}-{{$ses->fecha}}</td></tr>
+                    </table>
+                    
+                    @endif
+                    @endforeach
+                @endforeach
+
+</body>
+</html>

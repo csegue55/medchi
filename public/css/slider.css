@@ -1,0 +1,66 @@
+.slider         { border: 0px solid red; }
+.slider ul      { border: 0px solid blue;}
+.slider li      { border: 0px solid green;}
+.slider p       { border: 0px solid black;}
+#btn-prev       { border: 0px solid green;}
+#btn-next       { border: 0px solid black;}
+
+
+/*.slider         { width: 900px; height: 400px; margin-top: 100px; margin-left: 200px; overflow:hidden;}
+/*.slider         { box-shadow: 0px 0px 0px 0px #EFC076,   10px 5px 5px;  }*/   /* Marco + Sombra * Desp drech; */
+
+.slider ul      {
+    display: flex;
+    position: relative;
+    width: 1000%;
+    padding: 0;
+    animation: cambio 50s infinite alternate;      /* infinite = repeticiones infinitas; alternate = volver de atras a delante  */
+}
+
+.slider li      { width: 100%; list-style: none;}
+.slider img     { width: 100%;}
+
+.btn-prev, .btn-next {
+    background: rgba(255,255,255,0.3);
+    cursor: pointer;
+    transform:translateY(10px);
+}
+
+#btn-prev:hover, #btn-next:hover { background: rgba(255,255,255,1); }
+
+#btn-prev { left: 10px;}
+#btn-next { right: 10px;}
+
+@keyframes cambio {              /*Paradas y movimientos en % de tiempo */
+
+    0% {margin-left:0;}        /* 20% de 20 segundos ( animation) = 4 segundos estará la 1ª imagen */
+    5% {margin-left:0;}
+                               /* Del 20% al 25% es el tiempo de rotación entre las dos imágenes = 5s * 20% = 1s */
+   9% {margin-left: -100%;}
+   14% {margin-left: -100%;}
+
+   18% {margin-left: -200%;}
+   23% {margin-left: -200%;}
+
+   27% {margin-left: -300%;}
+   32% {margin-left: -300%;}
+
+   36%  {margin-left: -400%;}
+   41% {margin-left:  -400%;}
+
+   45%  {margin-left: -500%;}
+   50% {margin-left:  -500%;}
+
+   54%  {margin-left: -600%;}
+   59% {margin-left:  -600%;}
+
+   63%  {margin-left: -700%;}
+   68% {margin-left:  -700%;}
+
+   72%  {margin-left: -800%;}
+   77% {margin-left: -800%;}
+
+   81%  {margin-left: -900%;}
+   100% {margin-left: -900%;}
+
+}

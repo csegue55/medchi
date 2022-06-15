@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Pragati+Narrow&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quintessential&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer components{
+    .container-card {@apply bg-transparent
+                    mx-6 mt-16 
+                    grid sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4;}
+                    
+
+    .APP-card       {@apply bg-gradient-to-r from-gray-200 to-transparent  
+                    hover:bg-black 
+                    border-r-2 border-b-2 border-gray-100 shadow-xl  
+                    mr-1 
+                    overflow-hidden 
+                    cursor-pointer 
+                    transition duration-300 ;}
+
+    .APP-card-icon  {@apply block 
+                    w-full 
+                    mt-8
+                    text-5xl text-center  
+                    transition duration-300 ;}
+
+    .APP-card-h2    {@apply text-blue-700
+                    w-full mt-2
+                    h-10 text-xl font-bold text-center 
+                    transition duration-300;}
+
+    .APP-card-p     {@apply text-center text-blue-700 text-base 
+                    transition duration-300;}
+
+    .footer-box        { @apply m-4}
+    .footer-header     { @apply tracking-wider text-center text-sm   text-white  mb-4 p-1.5 border-black rounded-md shadow bg-black;}
+    .footer-menu       { @apply text-left m-5 text-sm;}
+    .footer-menu li    { @apply mt-3 p-1 border-b-2 border-gray-400 transition duration-300;}
+    .footer-menu li a  { @apply block h-10 transition duration-300 hover:text-blue-100;}
+    .browsers a        { @apply flex-1 mb-1.5 mr-1;}       
+                
+    .hr-gradient       { @apply bg-gradient-to-r from-gray-50 to-red-200 ;}    
+
+
+
+    }

@@ -1,0 +1,252 @@
+<?php
+if(!isset($_SESSION)) {
+    session_start();
+}
+
+use Illuminate\Support\Facades\Auth;    
+
+/*******************************************************************************************************************/
+if (Auth::check())
+{ 
+    if(isset($_SESSION['login'])){
+/*        
+        echo "sesion Abierta a usuario :"."<br>";
+        echo "id_Usuario :"   .$_SESSION['login']['u_id'];   echo"<br>";
+        echo "Nom_Usu :"      .$_SESSION['login']['u_nom'];  echo"<br>";
+        echo "apellido_Usua :".$_SESSION['login']['u_ape'];  echo"<br>";
+        echo "telefono_usu :" .$_SESSION['login']['u_tel'];  echo"<br>";
+        echo "email_Usuari :" .$_SESSION['login']['u_ema'];  echo"<br>";
+        echo "rol_Usuari :"   .$_SESSION['login']['u_rol'];  echo"<br>";
+        echo "rol_Contador :" .$_SESSION['login']['u_con'];  echo"<br>";
+*/
+    }else
+    {
+        echo "sesion No Abierta";
+    }
+}else{
+session_destroy();
+echo "Sesion cerrada";
+
+}
+/*******************************************************************************************************************/
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+
+</head>
+<body>
+
+
+<x-app-layout>
+
+
+<!-- BANNER -->
+<!-- ....tailwind.config.js ............................................................................................ -->
+<!-- ................................................................................................................... -->
+
+    <div class="flex justify-center bg-blue-900 mb-4">
+        @if (Auth::check())
+        <p class="text-white  font-bold ml-10">SESION COMO : <?php echo " ".$_SESSION['login']['u_rol'];?> - <?php echo $_SESSION['login']['u_nom'];?> </p>
+        @else
+        <p class="text-blue-900">.</p>
+        @endif                     
+    </div>
+
+<!--  -->
+<!-- ................................................................................................................... -->
+<!-- ................................................................................................................... -->
+
+        <a class="bg-red-300 px-2 py-2" href="{{route('users.listado')}}">CLIENTES</a>
+
+
+
+
+
+
+
+
+<!--  -->
+<!-- ................................................................................................................... -->
+ <!--............................................................................................................... -->
+        <div class="col-xl-9 colmod12 shadow" >
+            <h3>LISTADO DE CLIENTES<h3>    
+            <table> 
+                    <tr>
+                    <th><input class="h-6 border-0 bg-red-100 w-10"  type="text" placeholder="id"></th>
+                    <th><input class="h-6 border-0 bg-red-100 w-30"  type="text" placeholder="nombre"></th>
+                    <th><input class="h-6 border-0 bg-red-100 w-60"  type="text" placeholder="apellido"></th>
+                    <th><input class="h-6 border-0 bg-red-100 w-30"  type="text" placeholder="teléfono"></th>
+                    <th><input class="h-6 border-0 bg-red-100 w-60"  type="text" placeholder="email"></th>
+                    <th><input class="h-6 border-0 bg-red-100 w-30"  type="text" placeholder="rol"></th>
+                    <th><input class="h-6 border-0 bg-red-100 w-16 "  type="text" placeholder="contador"></th>
+                    </tr>
+            </table>
+            @foreach($users as $user)
+            <table>
+                  
+                    <tr>
+                    <td><input class="h-4 border-0 bg-gray-200 w-10" type="text" disabled   name="id"        value="{{$user->id}}"></td>
+                    <td><input class="h-4 border-0 bg-gray-200 w-30" type="text" disabled   name="nombre"    value="{{$user->name}}"></td>
+                    <td><input class="h-4 border-0 bg-gray-200 w-60" type="text" disabled   name="email"     value="{{$user->apellido}}"></td>
+                    <td><input class="h-4 border-0 bg-gray-200 w-30" type="text" disabled   name="email"     value="{{$user->tfno}}"></td>
+                    <td><input class="h-4 border-0 bg-gray-200 w-60" type="text" disabled   name="email"     value="{{$user->email}}"></td>
+                    <td><input class="h-4 border-0 bg-gray-200 w-30" type="text" disabled   name="email"     value="{{$user->rol}}"></td>
+                    <td><input class="h-4 border-0 bg-gray-200 w-16" type="text" disabled   name="email"     value="{{$user->cont}}"></td>
+                    
+                    <td><a href="" style="margin-right: 10px">Editar</a></td>
+                    <td><a href="">Eliminar</a></td>
+                    </tr>
+            </table>
+            @endforeach
+                        <!-- <a class="btn btn-primary" href="">Crear</a>  -->
+                        <a class="btn btn-outline-primary btn-sm " href="" role="button">Crear</a>
+                        <a class="btn btn-outline-success btn-sm " href="" role="button">Volver a alta de cliente</a>
+        </div> 
+<!--............................................................................................................... -->
+
+
+
+
+</x-app-layout>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+<div class=" max-x-sm md:max-w-4xl mx-auto mt-4 p-4  bg-slate-100 rounded-xl shadow-md overflow-hidden  ">   
+    <table class="table-auto bg-white w-full"> <!-- class="min-w-full divide-y divide-gray-300"> -->
+        
+        <div class="flex items-center">  
+            <x-jet-input class="flex-1 mr-4" placeholder="Escriba su búsqueda" type="text" wire:model="search"/> <!-- flex-1 -->
+            <a class="bg-black text-white p-1 rounded-md mr-2" href="">CONT</a>
+        </div>
+
+        <div class="bg-blue-200 w-full" >{{$search}}</div> 
+          
+
+          <thead class="table-header-group bg-slate-200 border-8  ">
+                <tr class="text-lefth table-row">
+                    <!-- .............................................................................................. -->
+                    <th 
+                            class="cursor-pointer  text-center" 
+                            wire:click="order('id')">
+                            id 
+                                @if($campo == "id")
+                                    @if($direction == "asc")
+                                    <span class="icon-sort-name-up float-center ml-4 text-sm mt-1"></span>
+                                    @else
+                                    <span class="icon-sort-name-down float-center ml-4 text-sm mt-1"></span>
+                                    @endif
+                                @else
+                                    <span class="icon-arrow-combo float-center ml-4 text-sm mt-1"></span>
+                                @endif
+                    </th>
+                    <!-- .............................................................................................. -->
+                    <th 
+                            class="cursor-pointer  text-left"   
+                            wire:click="order('name')">
+                            Nombre
+                                @if($campo == "name")
+                                    @if($direction == "asc")
+                                    <span class="icon-sort-name-up float-center ml-4 text-sm mt-1"></span>
+                                    @else
+                                    <span class="icon-sort-name-down float-center ml-4 text-sm mt-1"></span>
+                                    @endif
+                                @else
+                                    <span class="icon-arrow-combo float-center ml-4 text-sm mt-1"></span>
+                                @endif
+                    </th>
+                    <!-- .............................................................................................. -->
+                    <th 
+                            class="cursor-pointer  text-left"   
+                            wire:click="order('apellido')">
+                            Apellido
+                                @if($campo == "apellido")
+                                    @if($direction == "asc")
+                                    <span class="icon-sort-name-up float-center ml-4 text-sm mt-1"></span>
+                                    @else
+                                    <span class="icon-sort-name-down float-center ml-4 text-sm mt-1"></span>
+                                    @endif
+                                @else
+                                    <span class="icon-arrow-combo float-center ml-4 text-sm mt-1"></span>
+                                @endif
+                    </th>
+                    <!-- .............................................................................................. -->
+                    <th 
+                            class="cursor-pointer  text-left"   
+                            wire:click="order('tfno')">
+                            Telefono
+                                @if($campo == "tfno")
+                                    @if($direction == "asc")
+                                    <span class="icon-sort-name-up float-center ml-4 text-sm mt-1"></span>
+                                    @else
+                                    <span class="icon-sort-name-down float-center ml-4 text-sm mt-1"></span>
+                                    @endif
+                                @else
+                                    <span class="icon-arrow-combo float-center ml-4 text-sm mt-1"></span>
+                                @endif
+                    </th>
+                    <!-- .............................................................................................. -->
+                    <th>Editar</th>
+                    <!-- .............................................................................................. -->
+                     <th>Eliminar</th>
+                    <!-- .............................................................................................. --> 
+                </tr>
+            </thead>
+            
+            @if($users->count())
+
+            <!-- ....................................................................................................... -->
+            <!-- ....................................................................................................... -->
+            <!-- ....................................................................................................... -->
+        @foreach($users as $user)
+            
+            <tbody class="table-row-group">
+                <tr class="border border-x-1 table-row">
+                    <!-- ................................................................................................................. -->
+                    <td class="text-center">{{$user->id}}</td>
+                    <td class=" ">{{$user->name}}</td>
+                    <td class=" ">{{$user->apellido}}</td>
+                    <td class=" ">{{$user->tfno}}</td>
+                    <!-- ....................................................................................................... -->
+                    
+                    <!-- <td><x-jet-button>Editar</x-jet-button></td> -->
+                    <td><a class="bg-black text-white p-1 rounded-md" href="">Editar</a></td>
+                    <!-- ....................................................................................................... -->
+                    <td>
+                        <form action="" method="POST">   
+                            @csrf
+                            @method('delete')   
+                            <a class="bg-black text-white p-1 rounded-md" href="">Eliminar</a></td>    
+                        </form>
+
+                    </td>
+                    <!-- ....................................................................................................... -->
+                </tr>
+            </tbody>        
+        @endforeach
+    </table>
+            @else
+                <p class="text-red-700 text-center font-bold">No hay resultados que mostrar</p>
+            @endif
+</div>
+        <div class="text-center">
+            {{$users->links()}}
+        </div>
